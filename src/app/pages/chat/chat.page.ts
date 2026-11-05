@@ -28,6 +28,23 @@ export class ChatPage implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('starsCanvas') starsCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild(IonContent) content!: IonContent;
 
+
+
+mostrarEmojis = false;
+emojisDisponibles: string[] = ['😊', '😂', '❤️', '👍', '🔥', '🎉', '✨', '👋', '🤔', '😎', '🚀', '⭐'];
+
+
+toggleEmojis() {
+  this.mostrarEmojis = !this.mostrarEmojis;
+}
+
+agregarEmoji(emoji: string) {
+  this.mensajeTexto = (this.mensajeTexto || '') + emoji;
+  this.mostrarEmojis = false;
+}
+
+
+
   usuario = '';
   nivelIngles = '';
   correo = '';

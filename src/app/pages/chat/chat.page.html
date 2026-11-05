@@ -1,56 +1,104 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="transparent-toolbar">
-    <div class="chat-header glass-card">
-      <button class="btn-back" (click)="regresarMenu()">
-        <i class="fa-solid fa-arrow-left"></i> Menú
-      </button>
-      <div class="chat-title-info">
-        <h2>NOVA · Chat IA</h2>
-        <span class="status-badge">Nivel: {{ nivelIngles }}</span>
+<canvas #starsCanvas class="stars-canvas"></canvas>
+
+<div class="app-layout">
+  <!-- Barra lateral izquierda (Conversaciones) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2><span class="star">✦</span> NOVA <span class="star">✦</span></h2>
+    </div>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Buscar contacto..." />
+    </div>
+
+    <div class="conversations-section">
+      <h3>CONVERSACIONES</h3>
+      <div class="conversation-item active">
+        <div class="avatar nova-avatar">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <div class="conv-info">
+          <div class="conv-name">NOVA <span class="star">✦</span></div>
+          <div class="conv-subtitle">En qué te puedo ayudar el día de hoy?</div>
+        </div>
       </div>
     </div>
-  </ion-toolbar>
-</ion-header>
+  </aside>
 
-<ion-content class="ion-padding chat-content">
-  
-  <canvas #starsCanvas class="stars-canvas"></canvas>
-
-  <div class="chat-container">
-   
-    <div class="messages-wrapper">
-      @for (msg of mensajes; track msg) {
-        <div [ngClass]="{'msg-user': msg.remitente === 'user', 'msg-nova': msg.remitente === 'nova'}" class="message-bubble">
-          <div class="message-content">
-            <p style="white-space: pre-line;">{{ msg.texto }}</p>
-            <span class="message-time">{{ msg.hora }}</span>
-          </div>
+  <!-- Panel principal de chat (Derecha) -->
+  <main class="chat-main-panel">
+    
+    <!-- Cabecera del chat con los 3 botones de la referencia -->
+    <header class="chat-top-header">
+      <div class="contact-profile">
+        <div class="avatar user-avatar">L</div>
+        <div class="contact-info">
+          <h3>Luna</h3>
+          <span class="status-online"><span class="dot"></span> En línea</span>
         </div>
-      }
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" title="Llamada"><i class="fa-solid fa-phone"></i></button>
+        <button class="icon-btn" title="Expandir"><i class="fa-regular fa-square"></i></button>
+        <button class="icon-btn" title="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </header>
 
-      @if (cargando) {
-        <div class="message-bubble msg-nova">
-          <div class="message-content typing-indicator">
-            <span></span><span></span><span></span>
+    <!-- Contenido de mensajes -->
+    <ion-content class="chat-content">
+      <div class="messages-wrapper">
+        @for (msg of mensajes; track msg) {
+          <div [ngClass]="{'msg-user': msg.remitente === 'user', 'msg-nova': msg.remitente === 'nova'}" class="message-bubble">
+            <div class="message-content">
+              <p style="white-space: pre-line;">{{ msg.texto }}</p>
+              <span class="message-time">{{ msg.hora }}</span>
+            </div>
           </div>
+        }
+
+        @if (cargando) {
+          <div class="message-bubble msg-nova">
+            <div class="message-content typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        }
+      </div>
+    </ion-content>
+
+    <!-- Pie de página / Entrada de mensaje -->
+    <footer class="chat-footer-area">
+      <div class="input-card-wrapper">
+        @if (mostrarEmojis) {
+          <div class="emoji-picker-popup">
+            @for (emoji of emojisDisponibles; track emoji) {
+              <button type="button" (click)="agregarEmoji(emoji)">{{ emoji }}</button>
+            }
+          </div>
+        }
+
+        <div class="input-card">
+          <button type="button" class="tool-btn" (click)="toggleEmojis()" title="Emojis">
+            <i class="fa-regular fa-face-smile"></i>
+          </button>
+          <button type="button" class="tool-btn" title="Adjuntar"><i class="fa-solid fa-plus"></i></button>
+          
+          <input 
+            type="text" 
+            [(ngModel)]="mensajeTexto" 
+            (keyup.enter)="enviarMensaje()" 
+            placeholder="Escribe un mensaje..." 
+            [disabled]="cargando"
+          />
+          
+          <button type="button" class="tool-btn" title="Audio"><i class="fa-solid fa-microphone"></i></button>
+          <button type="button" (click)="enviarMensaje()" [disabled]="cargando || !mensajeTexto.trim()" class="btn-send">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
         </div>
-      }
-    </div>
-  </div>
-</ion-content>
+      </div>
+    </footer>
 
-
-<ion-footer class="ion-no-border transparent-footer">
-  <div class="chat-input-area glass-card">
-    <input 
-      type="text" 
-      [(ngModel)]="mensajeTexto" 
-      (keyup.enter)="enviarMensaje()" 
-      placeholder="Escribe una pregunta para NOVA..." 
-      [disabled]="cargando"
-    />
-    <button (click)="enviarMensaje()" [disabled]="cargando || !mensajeTexto.trim()" class="btn-send">
-      <i class="fa-solid fa-paper-plane"></i>
-    </button>
-  </div>
-</ion-footer>
+  </main>
+</div>
