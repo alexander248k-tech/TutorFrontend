@@ -1,0 +1,91 @@
+<div class="galaxy-universe">
+ 
+  <canvas id="starsCanvas" class="stars-canvas" #starsCanvas></canvas>
+
+  
+  <button (click)="regresarMenu()" class="back-btn" type="button" aria-label="Regresar">
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
+
+  
+  <header class="niveles-header">
+    <h1 class="nova-title">NOVA</h1>
+    <p class="nova-subtitle">Explora y descubre tu siguiente nivel</p>
+  </header>
+
+  
+  <main class="planets-container">
+    <div class="planets-row">
+      
+      
+      <div class="planet-wrapper" role="button" tabindex="0" 
+           (click)="openModal('A1', 'Principiante Inicial', 'Fundamentos del idioma. Inicias tu viaje espacial aprendiendo vocabulario básico, saludos y expresiones cotidianas.', 'Luna')"
+           (keydown.enter)="openModal('A1', 'Principiante Inicial', 'Fundamentos del idioma. Inicias tu viaje espacial aprendiendo vocabulario básico, saludos y expresiones cotidianas.', 'Luna')">
+        <div class="planet planet-a1 size-a1"></div>
+        <span class="planet-label">A1</span>
+      </div>
+
+      <div class="planet-wrapper" role="button" tabindex="0" 
+           (click)="openModal('A2', 'Principiante Elemental', 'Construcción de bases sólidas. Comunicación sobre tareas simples, descripciones básicas y entorno inmediato.', 'Mercurio')"
+           (keydown.enter)="openModal('A2', 'Principiante Elemental', 'Construcción de bases sólidas. Comunicación sobre tareas simples, descripciones básicas y entorno inmediato.', 'Mercurio')">
+        <div class="planet planet-a2 size-a2"></div>
+        <span class="planet-label">A2</span>
+      </div>
+
+      
+      <div class="planet-wrapper" role="button" tabindex="0" 
+           (click)="openModal('B1', 'Intermedio', 'Dominio de situaciones cotidianas. Capacidad para mantener conversaciones de temas conocidos, deseos y experiencias.', 'Marte')"
+           (keydown.enter)="openModal('B1', 'Intermedio', 'Dominio de situaciones cotidianas. Capacidad para mantener conversaciones de temas conocidos, deseos y experiencias.', 'Marte')">
+        <div class="planet planet-b1 size-b1"></div>
+        <span class="planet-label">B1</span>
+      </div>
+
+      
+      <div class="planet-wrapper" role="button" tabindex="0" 
+           (click)="openModal('B2', 'Intermedio Alto', 'Fluidez y espontaneidad. Capacidad de interacción con hablantes nativos con un grado suficiente de fluidez.', 'Venus')"
+           (keydown.enter)="openModal('B2', 'Intermedio Alto', 'Fluidez y espontaneidad. Capacidad de interacción con hablantes nativos con un grado suficiente de fluidez.', 'Venus')">
+        <div class="planet planet-b2 size-b2"></div>
+        <span class="planet-label">B2</span>
+      </div>
+
+      
+      <div class="planet-wrapper" role="button" tabindex="0" 
+           (click)="openModal('C1', 'Avanzado', 'Dominio operativo eficaz. Expresión fluida, estructurada y natural sobre temas complejos académicos o profesionales.', 'Tierra')"
+           (keydown.enter)="openModal('C1', 'Avanzado', 'Dominio operativo eficaz. Expresión fluida, estructurada y natural sobre temas complejos académicos o profesionales.', 'Tierra')">
+        <div class="planet planet-c1 size-c1"></div>
+        <span class="planet-label">C1</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="niveles-footer">
+    NOVA ACADEMY &copy; 2026 — EXPLORACIÓN ESPACIAL DEL CONOCIMIENTO
+  </footer>
+
+  
+  @if (modalAbierto) {
+    <div class="custom-modal-backdrop">
+      <div class="custom-modal-card">
+        <div class="modal-top">
+          <div>
+            <span class="modal-sub">Cuerpo Celeste: {{ modalPlanetText }}</span>
+            <h3 class="modal-h3">{{ modalLevelText }}</h3>
+          </div>
+          <button (click)="closeModal()" class="modal-close" type="button">&times;</button>
+        </div>
+        
+        <h4 class="modal-title-sec">{{ modalTitleText }}</h4>
+        <p class="modal-desc-sec">{{ modalDescriptionText }}</p>
+        
+        <button (click)="confirmarNivel()" class="modal-btn-action" type="button">
+          {{ cargando ? 'ENVIANDO COORDENADAS...' : 'CONTINUAR Y GUARDAR' }}
+        </button>
+        
+        @if (mensajeEstado) {
+          <p class="modal-status">{{ mensajeEstado }}</p>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,137 @@
+<canvas #starsCanvas class="stars-canvas"></canvas>
+
+<div class="container">
+    <header>
+        <div class="brand" tabindex="0" role="button" (click)="regresarMenu()" (keyup.enter)="regresarMenu()" style="cursor: pointer;">
+            <div class="mini-universe">
+                <div class="mini-planet"></div>
+                <div class="mini-orbit"></div>
+            </div>
+            <div class="logo">NOVA</div>
+        </div>
+
+        <div class="header-actions">
+            <button class="nav-btn-back" (click)="regresarMenu()" type="button">
+                <span>← Menú Principal</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="learning-card glass-panel">
+        <div class="card-icon-header">🎓</div>
+
+        <h2>¿Qué quieres aprender?</h2>
+        <p class="subtitle-desc">Sincronizado con tu nivel ({{ nivelIngles }}). Elige un tema o escribe uno.</p>
+
+       
+        @if (fase === 'seleccion') {
+            <div class="input-group">
+                <label for="temaInput">TEMA SELECCIONADO</label>
+                <input
+                    id="temaInput"
+                    type="text"
+                    [(ngModel)]="temaSeleccionado"
+                    placeholder="Ej. Futuro básico"
+                    class="neon-input"
+                />
+            </div>
+
+            <div class="niveles-container">
+                @if (cargandoTemas) {
+                    <div class="loading-state-small">
+                        <div class="spinner-small"></div>
+                        <p>Consultando nivel y temas con el servidor...</p>
+                    </div>
+                } @else {
+                    @for (grupo of temasVisibles; track grupo.nivel) {
+                        <div class="nivel-section">
+                            <span class="nivel-tag">{{ grupo.nivel }}: {{ grupo.nombre }}</span>
+                            <div class="chips-grid">
+                                @for (t of grupo.temas; track t) {
+                                    <button
+                                        type="button"
+                                        class="topic-chip"
+                                        [class.active]="temaSeleccionado === t"
+                                        (click)="seleccionarTema(t)">
+                                        {{ t }}
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <button type="button" class="btn-enviar" (click)="enviarTema()" [disabled]="cargando || cargandoTemas || !temaSeleccionado.trim()">
+                <span>{{ cargando ? 'ENVIANDO...' : 'ENVIAR TEMA →' }}</span>
+            </button>
+
+            @if (ejercicioTexto) {
+                <div class="output-box">
+                    <div class="output-content" style="white-space: pre-line;">
+                        {{ ejercicioTexto }}
+                    </div>
+                </div>
+            }
+
+            <div class="footer-logout">
+                <a tabindex="0" role="button" (click)="regresarMenu()" (keyup.enter)="regresarMenu()" style="cursor: pointer;">Regresar al menú</a>
+            </div>
+        }
+
+        
+        @if (fase === 'ejercicio') {
+            @if (actividadPendiente) {
+                <p class="pending-notice">📌 Tienes una actividad pendiente. Respóndela para continuar.</p>
+            }
+            <div class="output-box active-exercise">
+                <p class="exercise-title">EJERCICIO ASIGNADO:</p>
+                <div class="output-content" style="white-space: pre-line;">
+                    {{ ejercicioTexto }}
+                </div>
+            </div>
+
+            <div class="inputs-container">
+                <div class="input-group">
+                    <label for="resp1">TU RESPUESTA</label>
+                    <input
+                        id="resp1"
+                        type="text"
+                        [(ngModel)]="respuesta1"
+                        (keyup.enter)="enviarRespuestas()"
+                        placeholder="Escribe tu respuesta..."
+                        class="neon-input"
+                    />
+                </div>
+            </div>
+
+            <button type="button" class="btn-enviar" (click)="enviarRespuestas()" [disabled]="cargando || !respuestasCompletas">
+                <span>{{ cargando ? 'ENVIANDO RESPUESTA...' : 'ENVIAR RESPUESTA →' }}</span>
+            </button>
+
+            @if (!actividadPendiente) {
+                <div class="footer-logout">
+                    <a tabindex="0" role="button" (click)="reiniciarLeccion()" (keyup.enter)="reiniciarLeccion()" style="cursor: pointer;">Elegir otro tema</a>
+                </div>
+            }
+        }
+
+       
+        @if (fase === 'resultado') {
+            <div class="output-box">
+                <p class="exercise-title">EVALUACIÓN DE NOVA:</p>
+                <div class="output-content" style="white-space: pre-line;">
+                    {{ resultadoEvaluacion }}
+                </div>
+            </div>
+
+            <button type="button" class="btn-enviar" (click)="reiniciarLeccion()">
+                <span>PRACTICAR OTRO TEMA →</span>
+            </button>
+        }
+    </div>
+
+    <footer>
+        NOVA · EXPLORA TU UNIVERSO
+    </footer>
+</div>

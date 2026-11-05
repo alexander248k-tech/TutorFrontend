@@ -1,0 +1,100 @@
+<div id="stars"></div>
+
+<div class="container">
+    <header>
+        <div class="brand">
+            <div class="mini-universe">
+                <div class="mini-planet"></div>
+                <div class="mini-orbit"></div>
+                <span class="mini-star star-one">✦</span>
+                <span class="mini-star star-two">✧</span>
+            </div>
+            <div class="logo">NOVA</div>
+        </div>
+
+        
+        <div class="header-actions">
+            <button class="nav-btn-temas" type="button">
+                <span class="temas-icon">✧</span>
+                <span>Temas</span>
+            </button>
+
+            
+            <div class="user" tabindex="0" role="button" (click)="irAprender()" (keyup.enter)="irAprender()">
+                <div class="user-avatar-circle">{{ iniciales }}</div>
+                <div class="user-info-text">
+                    <span class="user-name">{{ usuario }}</span>
+                    
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="welcome">
+        <small>EXPLORA · APRENDE · EVOLUCIONA</small>
+        <h1>BIENVENIDO A NOVA</h1>
+        <p>Tu próximo destino de aprendizaje comienza aquí.</p>
+    </section>
+
+    <main class="menu">
+       
+        <div class="card progress" tabindex="0" role="button" (click)="irAprender()" (keyup.enter)="irAprender()">
+            <div class="card-top">
+                <span class="number">01 / PRÁCTICA</span>
+                <span class="symbol">◉</span>
+            </div>
+            <div>
+                <h2>Aprender y practicar</h2>
+                <p>Ejercicios y lecciones interactivas adaptadas a tu nivel para dominar el inglés.</p>
+            </div>
+            <div class="card-bottom">
+                <span class="enter">COMENZAR</span>
+            </div>
+        </div>
+
+        
+        <div class="card conversation" tabindex="0" role="button" (click)="irChat()" (keyup.enter)="irChat()">
+            <div class="card-top">
+                <span class="number">02 / CONEXIÓN</span>
+                <span class="symbol">◉</span>
+            </div>
+            <div>
+                <h2>Iniciar conversación libre</h2>
+                <p>Conecta con NOVA y comienza a explorar nuevas ideas.</p>
+            </div>
+            <div class="card-bottom">
+                <span class="enter">CONECTAR</span>
+            </div>
+        </div>
+
+        
+        <div class="card levels" tabindex="0" role="button" (click)="irNiveles()" (keyup.enter)="irNiveles()">
+            <div class="card-top">
+                <span class="number">03 / EXPLORACIÓN</span>
+                <span class="symbol">◉</span>
+            </div>
+            <div>
+                <h2>Seleccionar nivel</h2>
+                <p>Elige tu próximo destino y avanza a tu propio ritmo.</p>
+            </div>
+            <div class="card-bottom">
+                <span class="enter">ELEGIR DESTINO</span>
+            </div>
+        </div>
+    </main>
+
+
+    <div class="profile-section" tabindex="0" role="button" (click)="irNiveles()" (keyup.enter)="irNiveles()">
+        <div class="profile-left">
+            <span class="profile-icon">◈</span>
+            <div>
+                <h2>Selector de perfil y nivel</h2>
+                <p>Personaliza tu identidad y cambia de nivel dentro del universo NOVA.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        NOVA · EXPLORA TU UNIVERSO
+    </footer>
+</div>

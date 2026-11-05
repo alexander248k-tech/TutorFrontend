@@ -1,0 +1,32 @@
+{
+  "name": "mi-app-ionic",
+  "version": "1.0.0",
+  "description": "Version de escritorio de mi-app-ionic",
+  "author": "Robakills",
+  "main": "main.js",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "io.ionic.starter",
+    "productName": "mi-app-ionic",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "app/**/*",
+      "icon.png"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility",
+      "executableName": "mi-app-ionic"
+    }
+  }
+}
